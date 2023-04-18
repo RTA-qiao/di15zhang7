@@ -33,6 +33,9 @@ void change_size();
 /*chang_alignment*/
 void chang_alignment();
 
+/*change_toggle*/
+void change_toggle(ch);
+
 int main() {
 	char chioce;
 	while ((chioce = show_menu())   != 'q')
@@ -48,8 +51,45 @@ int main() {
 		case 'a':
 			chang_alignment();
 			break;
+		case 'b':
+		case 'i':
+		case 'u':
+			change_toggle(chioce);
+			eating();
+			break;
 		default:
 			break;
+		}
+	}
+	puts("bye!");
+}
+
+void change_toggle(char ch) {
+	if (ch == 'b') {
+		if (ft & 0x4) {			//将其他的位设置为0   4号位保持不变
+			ft &= ~(ulong)0x4;
+		}
+		else {
+			ft |= (ulong)0x4;		//如果是关闭 就将4号位设置为1 其他保持不变
+		}
+	}
+	else if (ch == 'i') {
+		if (ft & 0x2) {
+			ft &= ~(ulong)0x2;
+		}
+		else {
+			ft |= (ulong)0x2;
+		}
+	}
+	else
+	{
+		if (ft & 0x01)
+		{
+			ft &= ~(ulong)(0x01);
+		}
+		else
+		{
+			ft |= (ulong)(0x01);
 		}
 	}
 }
