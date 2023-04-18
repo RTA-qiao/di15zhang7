@@ -23,13 +23,53 @@ char show_menu();
 
 /*去除多余的输入 */
 void eating();
-int main() {
-	char ch;
-	while ((ch = show_menu())   != 'q')
-	{
 
+/*change_font*/
+void change_font();
+int main() {
+	char chioce;
+	while ((chioce = show_menu())   != 'q')
+	{
+		switch (chioce)
+		{
+		case 'a':
+			change_font();
+			break;
+		default:
+			break;
+		}
 	}
 }
+
+void change_font() {
+	int id;
+	puts("enter 0  -  255");
+	while (scanf_s("%d",&id) != 1 || getchar() != '\n')
+	{
+		printf("err---- 0 - 255\n");
+		eating();
+	}
+	
+	puts("not change ==== id");
+	chang_num_bit(id, itbos);
+	show_bit(itbos);
+	puts("ft");
+	chang_num_bit(ft, itbos);
+	show_bit(itbos);
+	id &= 0xff; 
+	id <<= 12;
+	puts("change ==== id");
+	chang_num_bit(id, itbos);
+	show_bit(itbos);
+	for (int i = 12; i < 20; i++) {
+		ft &= ~(1 << i);
+	}
+	ft |= id;
+	puts("change ====ft");
+	chang_num_bit(ft, itbos);
+	show_bit(itbos);
+}
+
 
 char show_menu() {
 	////从右往左数, 第1位表示U, 第2位表示I, 第3位表示B, 
@@ -40,6 +80,7 @@ char show_menu() {
 	printf("f) change font        s) change size        a) change alignment\n");
 	printf("b) toggle bold        i) toggle italic      u) toggle underline\n");
 	printf("q) quit\n");
+	
 	char ch; 
 	printf("Please enter with f, s, a, b, i, u or q: ");
 	ch = getchar();
@@ -66,11 +107,13 @@ void show_bit(const char * str){
 	int i = 0; 
 	while (str[i])
 	{
+		putchar(str[i]);
 		if (++i % 4 == 0 && str[i]) {
 			putchar(' ');
 		}
-		putchar(str[i]);
+		
 	}
+	putchar('\n');
 	return;
 }
 
