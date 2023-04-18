@@ -26,19 +26,79 @@ void eating();
 
 /*change_font*/
 void change_font();
+
+/*change_size*/
+void change_size();
+
+/*chang_alignment*/
+void chang_alignment();
+
 int main() {
 	char chioce;
 	while ((chioce = show_menu())   != 'q')
 	{
 		switch (chioce)
 		{
-		case 'a':
+		case 'f':
 			change_font();
+			break;
+		case 's':
+			change_size();
+			break;
+		case 'a':
+			chang_alignment();
 			break;
 		default:
 			break;
 		}
 	}
+}
+
+void chang_alignment() {
+	char ch; 
+	printf("Select alignment:\n");
+	printf("l) left    c) center    r) right\n");
+	while ((ch = getchar()),(NULL == strchr("lcr",ch)) || getchar() != '\n')
+	{
+		printf("Please enter with l, c or r: ");
+	}
+	puts("ft");
+	chang_num_bit(ft, itbos);
+	show_bit(itbos);
+	ft &= ~(1 << 3), ft &= ~(1 << 4);
+	ft = ft | (ch == 'l' ? 0 : ch == 'c' ? (1 << 3) : (1 << 4));
+	puts("after ft");
+	chang_num_bit(ft, itbos);
+	show_bit(itbos);
+}
+
+
+void change_size() {
+	int size; 
+	puts("enter 0 - 127 ");
+	while (scanf_s("%d",&size) != 1 || getchar() != '\n')
+	{
+		puts("err 0 - 127 ");
+		eating();
+	}
+	puts("not change ==== size");
+	chang_num_bit(size, itbos);
+	show_bit(itbos);
+	puts("ft");
+	chang_num_bit(ft, itbos);
+	show_bit(itbos);
+	size &= 0x7f;
+	size <<= 5;
+	puts("change ==== size");
+	chang_num_bit(size, itbos);
+	show_bit(itbos);
+	for (int i = 5; i < 12; i++) {
+		ft &=	~(1 << i);					//改变ft的 6-12位 为0
+	}
+	ft |= size;
+	puts("after ft");
+	chang_num_bit(ft, itbos);
+	show_bit(itbos);
 }
 
 void change_font() {
