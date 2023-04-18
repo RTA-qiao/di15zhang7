@@ -24,7 +24,11 @@ char show_menu();
 /*去除多余的输入 */
 void eating();
 int main() {
-	show_menu();
+	char ch;
+	while ((ch = show_menu())   != 'q')
+	{
+
+	}
 }
 
 char show_menu() {
@@ -64,7 +68,6 @@ void show_bit(const char * str){
 	{
 		if (++i % 4 == 0 && str[i]) {
 			putchar(' ');
-
 		}
 		putchar(str[i]);
 	}
